@@ -39,3 +39,6 @@ reverseButton.onclick = async () => {
   // 反転した文字列でテキストボックスを書き換える
   reverseInput.value = data.message;
 };
+
+
+
