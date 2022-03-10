@@ -23,10 +23,14 @@
         this.subject = subject;
       }
     }
+    const loadMark=()=>{
+      fetchJSON("/api/problems");
+
+    }
     const subject = `たすけてください`
     const solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
     function createMap(){
-      
+      loadMark();
       const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
       map.setView([35.40, 136], 5);
       L.control.scale({maxWidth:200,position:'bottomright',imperial:false}).addTo(map);
@@ -87,11 +91,8 @@
       console.log("マーカーを設置");
     }
     
-    const loadMark=()=>{
-      fetchJSON("/api/problems");
-
-    }
-    loadMark();
+ 
+    
     module.createMap=createMap;
     module.deleteProblem=deleteProblem;
     module.loadMark=loadMark;
