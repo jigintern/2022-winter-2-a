@@ -5,8 +5,8 @@
   <title>インターン2-a</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
-  <script>
-    
+  <script type="module">
+    import {fetchJSON} from "./fetch.js"
     /*
     let currentLocation;
     let timestamp;*/
@@ -47,7 +47,7 @@
         let timestamptag = `${data[0].timestamp}</br>` ;
         cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
         
-        makeJSON(data);
+        fetchJSON("/getjson", data);
           
       }
       
@@ -70,12 +70,7 @@
 
       globalMap=map;
     }
-    
-    const makeJSON = (data) =>{
-      
-      console.log(JSON.stringify(data));
-      
-    }
+
 
     const deleteProblem = () =>{
       alert('解決できました');

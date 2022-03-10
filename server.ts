@@ -10,6 +10,7 @@ serve((req) => {
     console.log("Request:", req.method, pathname);
     console.log(Deno.env.get("DATABASE_URL"));
 
+
     // /api/ で始まる場合、API サーバっぽく処理して返す
     if (pathname.startsWith("/api/")) {
         switch (pathname) {
@@ -19,6 +20,8 @@ serve((req) => {
                 return apiFourArithmeticOperations(req);
             case "/api/reverse":
                 return apiReverse(req);
+            case "/getjson":
+                return console.log(req);
         }
     }
 
