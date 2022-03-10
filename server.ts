@@ -19,7 +19,7 @@ serve((req) => {
             case "/api/asmd": // addition, subtraction, multiplication, division の頭文字
                 return apiFourArithmeticOperations(req);
             case "/api/reverse":
-                return apiReverse(req);
+                return apiReverse(req),console.log(req);
             case "/api/getjson":
                 return console.log(req);
         }
