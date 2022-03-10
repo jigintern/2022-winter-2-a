@@ -21,7 +21,7 @@ serve((req) => {
             case "/api/reverse":
                 return apiReverse(req);
             case "/api/getjson":
-                return console.log(req);
+                return apiGetJSON(req);
         }
     }
 
@@ -103,3 +103,7 @@ const apiReverse = async (req: Request) => {
 type ApiReversePayload = {
     message: string;
 };
+
+const apiGetJSON = (req) =>{
+    return console.log(req);
+}
