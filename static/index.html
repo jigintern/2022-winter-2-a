@@ -7,11 +7,21 @@
   <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
   <script>
     
-
+    /*
     let currentLocation;
-    let timestamp;
+    let timestamp;*/
     let cLocation;
     let globalMap;
+    let data = [];
+    
+    class caseData{
+      constructor(currentLocation,timestamp,subject){
+        this.currentLocation = currentLocation;
+        this.timestamp = Date(timestamp);
+        this.subject = subject;
+
+      }
+    }
     const subject = `たすけてください`
     const solve =`<input type="button" value="解決" onclick="deleteProblem()">`
     function createMap(){
@@ -32,13 +42,13 @@
       osm.addTo(map);
 
       function onLocationFound(e) {
-        currentLocation = e.latlng;
-        timestamp = Date(e.timestamp);
-        let subjecttag = `${subject}</br>`;
-        let timestamptag = `${timestamp}</br>` ;
-        cLocation=L.marker(currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
+        data.push(new caseData(e.latlng,e.timestamp,subject));
+        console.log(data[0]);
+        let subjecttag = `${data[0].subject}</br>`;
+        let timestamptag = `${data[0].timestamp}</br>` ;
+        cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
         
-          makeJSON(location,timestamp,subject);
+        makeJSON(data);
           
       }
       
@@ -62,11 +72,9 @@
       globalMap=map;
     }
     
-    const makeJSON = (location,timestamp,subject) =>{
-      console.log("hello");
-      console.log(location);
-      console.log(timestamp);
-      console.log(subject);
+    const makeJSON = (data) =>{
+      
+      console.log(JSON.stringify(data));
       
     }
 
