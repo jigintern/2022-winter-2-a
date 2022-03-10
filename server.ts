@@ -4,6 +4,7 @@ import { format } from "https://deno.land/std@0.127.0/datetime/mod.ts";
 import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
 
 console.log("Listening on http://localhost:8000");
+console.log(Deno.env.get("DATABASE_URL"));
 const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
 const pool = new postgres.Pool(databaseUrl, 3, true);
