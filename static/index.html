@@ -25,7 +25,7 @@
     }
     const loadMark= async()=>{
       let tmp = await fetchJSON("/api/problems");
-      console.log(tmp[0].lat);
+      let delete = await fetchJSON("/api/solved", {ID:tmp[0].id});
 
     }
     const subject = `たすけてください`

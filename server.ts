@@ -48,6 +48,8 @@ serve((req) => {
                 return apiGetJSON(req);
             case "/api/problems":
                 return apiProblems(req);
+            case "/api/solve":
+                return apiSolve(req);
         }
     }
 
@@ -138,6 +140,7 @@ type SOSdata = {
     currentLocation: point;
     timestamp: string;
 }
+
 const apiGetJSON = async (req: Request) =>{
     const connection = await pool.connect();
     const json = (await req.json()) as SOSdata;
@@ -172,6 +175,24 @@ const apiProblems = async (req: Request) =>{
     }
 
     return createJsonResponse(problems);
+}
+type solveData ={
+    ID: number;
+}
+const apiSolve =async (req: Request) => {
+    const solved = (await req.json()) as solveData
+    const connection = await pool.connect();
+    
+    try{
+        const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solved.ID}} `)
+        console.log(result);
+        
+    }finally {
+        connection.release();
+    }
+
+
+    return createJsonResponse({message:"problem deleted"});
 }
 /*
 // データベースに保存
