@@ -23,7 +23,7 @@
         this.subject = subject;
       }
     }
-    const loadMark=()=>{
+    const loadMark= async()=>{
       let tmp = await fetchJSON("/api/problems");
       console.log(tmp);
 
