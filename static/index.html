@@ -1,64 +1,93 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>インターン2-a</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css"
-    />
-    <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
-    <script>
-      function createMap() {
-        const map = L.map("mapcontainer", { zoomControl: false });
-        map.setView([35.4, 136], 5);
-        L.control
-          .scale({ maxWidth: 200, position: "bottomright", imperial: false })
-          .addTo(map);
-        L.control.zoom({ position: "bottomleft" }).addTo(map);
+<head>
+  <meta charset="UTF-8">
+  <title>インターン2-a</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+  <script>
+    
+    /*
+    let currentLocation;
+    let timestamp;*/
+    let cLocation;
+    let globalMap;
+    let data = [];
+    
+    class caseData{
+      constructor(currentLocation,timestamp,subject){
+        this.currentLocation = currentLocation;
+        this.timestamp = Date(timestamp);
+        this.subject = subject;
 
-        //オープンストリートマップのタイル
-        const osm = L.tileLayer(
-          "http://tile.openstreetmap.jp/{z}/{x}/{y}.png",
-          {
-            attribution:
-              "<a href='http://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors",
-          }
-        );
-        //baseMapsオブジェクトのプロパティに3つのタイルを設定
-
-        //layersコントロールにbaseMapsオブジェクトを設定して地図に追加
-        //コントロール内にプロパティ名が表示される
-
-        osm.addTo(map);
-
-        function onLocationFound(e) {
-          console.log(e);
-          L.marker(e.latlng).addTo(map).bindPopup("現在地").openPopup();
-        }
-
-        function onLocationError(e) {
-          alert("現在地を取得できませんでした。" + e.message);
-        }
-
-        map.on("locationfound", onLocationFound);
-        map.on("locationerror", onLocationError);
-        const mpoint = [35.8627, 139.6072];
-
-        map.locate({ setView: true, maxZoom: 16, timeout: 20000 });
-
-        //埼玉大学の位置にドラッグ可能なマーカーを地図に追加
-        L.marker(mpoint, { title: "埼玉大学", draggable: true }).addTo(map);
-        //桜区役所のマーカーを追加
-        L.marker([35.8561, 139.6098], { title: "桜区役所" }).addTo(map);
       }
-    </script>
-  </head>
-  <body onload="createMap()">
-    <div id="mapcontainer" style="width: 500px; height: 500px"></div>
-    <input id="inputInput" type="text" placeholder="内容" />
-    <button id="inputButton">送信</button>
-    <p id="Result"></p>
-    <script type="module" src="main.js"></script>
-  </body>
+    }
+    const subject = `たすけてください`
+    const solve =`<input type="button" value="解決" onclick="deleteProblem()">`
+    function createMap(){
+      
+      const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
+      map.setView([35.40, 136], 5);
+      L.control.scale({maxWidth:200,position:'bottomright',imperial:false}).addTo(map);
+      L.control.zoom({position:'bottomright'}).addTo(map);
+   
+      //オープンストリートマップのタイル
+      const osm = L.tileLayer('https://tile.openstreetmap.jp/{z}/{x}/{y}.png',
+        {  attribution: "<a href='https://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors" });
+      //baseMapsオブジェクトのプロパティに3つのタイルを設定
+      
+      //layersコントロールにbaseMapsオブジェクトを設定して地図に追加
+      //コントロール内にプロパティ名が表示される
+      
+      osm.addTo(map);
+
+      function onLocationFound(e) {
+        data.push(new caseData(e.latlng,e.timestamp,subject));
+        console.log(data[0]);
+        let subjecttag = `${data[0].subject}</br>`;
+        let timestamptag = `${data[0].timestamp}</br>` ;
+        cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
+        
+        makeJSON(data);
+          
+      }
+      
+      function onLocationError(e) {
+          alert("現在地を取得できませんでした。" + e.message);
+      }
+ 
+      map.on('locationfound', onLocationFound);
+      map.on('locationerror', onLocationError);
+      
+      const mpoint = [35.8627, 139.6072];
+ 
+      map.locate({setView: true, maxZoom: 16, timeout: 20000});
+
+     
+      //埼玉大学の位置にドラッグ可能なマーカーを地図に追加
+      L.marker(mpoint,{title:"埼玉大学",draggable:true}).addTo(map);
+      //桜区役所のマーカーを追加
+      L.marker([35.8561,139.6098],{title:"桜区役所"}).addTo(map);
+
+      globalMap=map;
+    }
+    
+    const makeJSON = (data) =>{
+      
+      console.log(JSON.stringify(data));
+      
+    }
+
+    const deleteProblem = () =>{
+      alert('解決できました');
+      console.log(cLocation);
+      globalMap.removeLayer(cLocation);
+    }
+    
+  </script>   
+</head>
+<body onload="createMap()">
+  <h1>Hello</h1>
+  <div id="mapcontainer" style="position:absolute;top:0;left:0;right:0;bottom:0;"></div>
+</body>
 </html>
