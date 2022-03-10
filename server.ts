@@ -135,6 +135,7 @@ type SOSdata = {
     timestamp: string;
 }
 const apiGetJSON = async (req: Request) =>{
+    const connection = await pool.connect();
     const json = (await req.json()) as SOSdata;
     // Insert the new todo into the database
     try{
