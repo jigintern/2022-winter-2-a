@@ -105,5 +105,6 @@ type ApiReversePayload = {
 };
 
 const apiGetJSON = (req) =>{
-    return createJsonResponse({message: "success"});
+    
+    return createJsonResponse({message: req});
 }
