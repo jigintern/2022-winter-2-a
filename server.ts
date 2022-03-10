@@ -20,7 +20,7 @@ serve((req) => {
                 return apiFourArithmeticOperations(req);
             case "/api/reverse":
                 return apiReverse(req);
-            case "/getjson":
+            case "/api/getjson":
                 return console.log(req);
         }
     }
