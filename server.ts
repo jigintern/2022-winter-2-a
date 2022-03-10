@@ -7,17 +7,25 @@ serve((req) => {
   const url = new URL(req.url);
   const pathname = url.pathname;
 
-  console.log("Request:", req.method, pathname);
 
-  // /api/ で始まる場合、API サーバっぽく処理して返す
-  if (pathname.startsWith("/api/")) {
-    switch (pathname) {
-      case "/api/time":
-        return apiTime(req);
-      case "/api/asmd": // addition, subtraction, multiplication, division の頭文字
-        return apiFourArithmeticOperations(req);
-      case "/api/input":
-        return apiinput(req);
+    console.log("Request:", req.method, pathname);
+    console.log(Deno.env.get("DATABASE_URL"));
+
+
+    // /api/ で始まる場合、API サーバっぽく処理して返す
+    if (pathname.startsWith("/api/")) {
+        switch (pathname) {
+            case "/api/time":
+                return apiTime(req);
+            case "/api/asmd": // addition, subtraction, multiplication, division の頭文字
+                return apiFourArithmeticOperations(req);
+            case "/api/reverse":
+                return apiReverse(req);
+            case "/api/getjson":
+                return console.log(req);
+            case "/api/input":
+                return apiinput(req);
+        }
     }
   }
 
