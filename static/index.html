@@ -25,7 +25,7 @@
     }
     const loadMark= async()=>{
       let tmp = await fetchJSON("/api/problems");
-      console.log(tmp);
+      console.log(tmp[0].lat);
 
     }
     const subject = `たすけてください`
