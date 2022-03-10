@@ -3,6 +3,27 @@ import { serveDir } from "https://deno.land/std@0.127.0/http/file_server.ts";
 import { format } from "https://deno.land/std@0.127.0/datetime/mod.ts";
 
 console.log("Listening on http://localhost:8000");
+const databaseUrl = Deno.env.get("DATABASE_URL")!;
+
+const pool = new postgres.Pool(databaseUrl, 3, true);
+
+// Connect to the database
+const connection = await pool.connect();
+try {
+  // Create the table
+  await connection.queryObject`
+    CREATE TABLE IF NOT EXISTS problems (
+      lat SERIAL PRIMARY KEY,
+      lng SERIAL,
+      timestamp TEXT NOT NULL,
+      subject TEXT NOT NULL
+    )
+  `;
+} finally {
+  // Release the connection back into the pool
+  connection.release();
+}
+
 serve((req) => {
     const url = new URL(req.url);
     const pathname = url.pathname;
@@ -103,10 +124,37 @@ const apiReverse = async (req: Request) => {
 type ApiReversePayload = {
     message: string;
 };
+type point = {
+    lat: string;
+    lng: string;
+}
 type SOSdata = {
     subject: string;
+    currentLocation: point;
+    timestamp: string;
 }
 const apiGetJSON = async (req: Request) =>{
     const json = (await req.json()) as SOSdata;
-    return createJsonResponse({message: json.subject});
+    // Insert the new todo into the database
+    try{
+        await connection.queryObject`
+        INSERT INTO problems (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat,json.currentLocation.lng,json.timestamp,json.subject})
+        `;
+    }finally {
+        connection.release();
+    }
+    
+    return createJsonResponse({message: json});
 }
+
+/*
+// データベースに保存
+const connection = await pool.connect();
+try {
+  await connection.queryObject`
+    INSERT INTO todos (title) VALUES (${title})
+  `;
+} finally {
+  connection.release();
+}
+*/
