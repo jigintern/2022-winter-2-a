@@ -48,7 +48,7 @@ serve((req) => {
                 return apiGetJSON(req);
             case "/api/problems":
                 return apiProblems(req);
-            case "/api/solve":
+            case "/api/solved":
                 return apiSolve(req);
         }
     }
