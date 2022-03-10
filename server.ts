@@ -45,6 +45,8 @@ serve((req) => {
                 return apiReverse(req);
             case "/api/getjson":
                 return apiGetJSON(req);
+            case "/api/problems":
+                return apiProblems(req);
         }
     }
 
@@ -139,13 +141,27 @@ const apiGetJSON = async (req: Request) =>{
     const connection = await pool.connect();
     const json = (await req.json()) as SOSdata;
     // Insert the new todo into the database
-    let problems
+    
     try{
         const sql = `
         INSERT INTO problems (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat},${json.currentLocation.lng},NOW(),'${json.subject}')
         `;
         console.log(sql);
         await connection.queryObject(sql);
+        
+    }finally {
+        connection.release();
+    }
+
+    
+    return createJsonResponse({message: "success"});
+}
+
+const apiProblems = async (req: Request) =>{
+    let problems;
+    const connection = await pool.connect();
+    
+    try{
         const result = await connection.queryObject("SELECT * FROM problems")
         console.log(result);
         problems = result.rows
@@ -154,10 +170,8 @@ const apiGetJSON = async (req: Request) =>{
         connection.release();
     }
 
-    
     return createJsonResponse(problems);
 }
-
 /*
 // データベースに保存
 const connection = await pool.connect();
