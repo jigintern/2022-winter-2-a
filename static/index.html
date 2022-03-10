@@ -42,7 +42,7 @@
       
       osm.addTo(map);
 
-      function onLocationFound(e) {
+      async function onLocationFound(e) {
         data.push(new caseData(e.latlng,e.timestamp,subject));
         console.log(data[0]);
         let subjecttag = `${data[0].subject}</br>`;
@@ -55,7 +55,7 @@
           
       }
       
-      function onLocationError(e) {
+      async function onLocationError(e) {
           alert("現在地を取得できませんでした。" + e.message);
       }
  
