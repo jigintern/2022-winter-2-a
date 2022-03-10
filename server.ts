@@ -7,7 +7,7 @@ console.log("Listening on http://localhost:8000");
 console.log(Deno.env.get("DATABASE_URL"));
 const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
-const pool = new postgres.Pool(databaseUrl, 3, true);
+//const pool = new postgres.Pool(databaseUrl, 3, true);
 /*
 // Connect to the database
 const connection = await pool.connect();
