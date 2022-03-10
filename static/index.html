@@ -14,6 +14,7 @@
     let cLocation;
     let globalMap;
     let data = [];
+    let a;
     
     class caseData{
       constructor(currentLocation,timestamp,subject){
@@ -48,7 +49,8 @@
         let timestamptag = `${data[0].timestamp}</br>` ;
         cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
         
-        fetchJSON("/api/time",data[0]);
+        a = fetchJSON("/api/time",data[0]);
+        console.log(a);
           
       }
       
