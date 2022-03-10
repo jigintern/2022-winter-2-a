@@ -108,5 +108,5 @@ type SOSdata = {
 }
 const apiGetJSON = async (req: Request) =>{
     const json = (await req.json()) as SOSdata;
-    return createJsonResponse({message: json});
+    return createJsonResponse({message: json.subject});
 }
