@@ -50,6 +50,7 @@
         cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
         
         a = fetchJSON("/api/time",data[0]);
+        console.log(data[0]);
         console.log(a);
           
       }
