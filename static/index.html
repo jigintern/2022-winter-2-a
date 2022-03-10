@@ -87,13 +87,15 @@
       console.log("マーカーを設置");
     }
     
-    module.createMap=createMap;
-    module.deleteProblem=deleteProblem;
-
     const loadMark=()=>{
       fetchJSON("/api/problems");
+
     }
     loadMark();
+    module.createMap=createMap;
+    module.deleteProblem=deleteProblem;
+    module.loadMark=loadMark;
+    
   </script>   
 
   <script>
