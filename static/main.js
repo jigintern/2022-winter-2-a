@@ -10,7 +10,7 @@ inputButton.onclick = async () => {
   console.log(data);
 
   // 反転した文字列でテキストボックスを書き換える
-  Result.innerText=data.message;
+  Result.innerText = data.message;
 };
 
 

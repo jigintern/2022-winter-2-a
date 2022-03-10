@@ -16,8 +16,6 @@ serve((req) => {
         return apiTime(req);
       case "/api/asmd": // addition, subtraction, multiplication, division の頭文字
         return apiFourArithmeticOperations(req);
-      case "/api/reverse":
-        return apiReverse(req);
       case "/api/input":
         return apiinput(req);
     }
@@ -98,19 +96,8 @@ const createJsonResponse = (obj: any) =>
   });
 
 // クライアントから送られてきた JSON の message の文字列を反転して返す API
-// curl -X POST -d '{ "message": "hello" }' http://localhost:8000/api/reverse
+// curl -X POST -d '{ "message": "hello" }' http://localhost:8000/api/input
 // → {"message":"olleh"}
-const apiReverse = async (req: Request) => {
-  const json = (await req.json()) as ApiReversePayload;
-  const message = json.message;
-  const reversedMessage = message.split("").reverse().join("");
-  return createJsonResponse({ message: reversedMessage });
-};
-
-type ApiReversePayload = {
-  message: string;
-};
-
 const apiinput = async (req: Request) => {
   const json = (await req.json()) as ApiinputPayload;
   const message = json.message;
