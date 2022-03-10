@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
   <script type="module">
-    import { fetchJSON } from "./fetch.js";
+    import {fetchJSON} from "./fetch.js";
+    
     /*
     let currentLocation;
     let timestamp;*/
@@ -22,7 +23,7 @@
       }
     }
     const subject = `たすけてください`
-    const solve =`<input type="button" value="解決" onclick="deleteProblem()">`
+    const solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
     function createMap(){
       
       const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
@@ -47,7 +48,7 @@
         let timestamptag = `${data[0].timestamp}</br>` ;
         cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
         
-        fetchJSON("/api/getjson",data);
+        fetchJSON("/api/getjson",data[0]);
           
       }
       
@@ -71,6 +72,7 @@
       globalMap=map;
     }
     
+   
 
     const deleteProblem = () =>{
       alert('解決できました');
@@ -81,9 +83,18 @@
     const makeMarker = () =>{
       console.log("マーカーを設置");
     }
+    
+    module.createMap=createMap;
+    module.deleteProblem=deleteProblem;
+
   </script>   
+
+  <script>
+    const module = {}
+  </script>
+
 </head>
-<body onload="createMap()">
+<body onload = "module.createMap()">
   <h1>Hello</h1>
   <div id="mapcontainer" style="position:absolute;top:0;left:0;right:0;bottom:0;"></div>
 </body>
