@@ -90,6 +90,9 @@
     module.createMap=createMap;
     module.deleteProblem=deleteProblem;
 
+    const loadMark=()=>{
+      fetchJSON("/api/problems");
+    }
   </script>   
 
   <script>
