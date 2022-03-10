@@ -103,8 +103,10 @@ const apiReverse = async (req: Request) => {
 type ApiReversePayload = {
     message: string;
 };
-
-const apiGetJSON = (req) =>{
-    
-    return createJsonResponse({message: req});
+type SOSdata = {
+    subject: string;
+}
+const apiGetJSON = async (req: Request) =>{
+    const json = (await req.json()) as SOSdata;
+    return createJsonResponse({message: json});
 }
