@@ -8,12 +8,13 @@
   <script>
     
 
-    let a;
+    let currentLocation;
+    let timestamp;
     let cLocation;
     let globalMap;
-    const subject = `たすけてください</br>`
-    const problem =`<input type="button" value="解決" onclick="deleteProblem()">`
-    function createMap(a){
+    const subject = `たすけてください`
+    const solve =`<input type="button" value="解決" onclick="deleteProblem()">`
+    function createMap(){
       
       const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
       map.setView([35.40, 136], 5);
@@ -31,9 +32,13 @@
       osm.addTo(map);
 
       function onLocationFound(e) {
-        cLocation=L.marker(e.latlng).addTo(map).bindPopup(subject+problem).openPopup();
-          a = e;
-          makeJSON(a);
+        currentLocation = e.latlng;
+        timestamp = Date(e.timestamp);
+        let subjecttag = `${subject}</br>`;
+        let timestamptag = `${timestamp}</br>` ;
+        cLocation=L.marker(currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
+        
+          makeJSON(location,timestamp,subject);
           
       }
       
@@ -43,7 +48,7 @@
  
       map.on('locationfound', onLocationFound);
       map.on('locationerror', onLocationError);
-      console.log(a);
+      
       const mpoint = [35.8627, 139.6072];
  
       map.locate({setView: true, maxZoom: 16, timeout: 20000});
@@ -57,9 +62,11 @@
       globalMap=map;
     }
     
-    const makeJSON = (a) =>{
+    const makeJSON = (location,timestamp,subject) =>{
       console.log("hello");
-      console.log(a.latlng);
+      console.log(location);
+      console.log(timestamp);
+      console.log(subject);
       
     }
 
