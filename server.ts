@@ -139,6 +139,7 @@ const apiGetJSON = async (req: Request) =>{
     const connection = await pool.connect();
     const json = (await req.json()) as SOSdata;
     // Insert the new todo into the database
+    let problems
     try{
         const sql = `
         INSERT INTO problems (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat},${json.currentLocation.lng},NOW(),'${json.subject}')
@@ -147,13 +148,14 @@ const apiGetJSON = async (req: Request) =>{
         await connection.queryObject(sql);
         const result = await connection.queryObject("SELECT * FROM problems")
         console.log(result);
+        problems = result.rows
         
     }finally {
         connection.release();
     }
 
     
-    return createJsonResponse({message: json});
+    return createJsonResponse(problems);
 }
 
 /*
