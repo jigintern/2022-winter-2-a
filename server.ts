@@ -15,8 +15,8 @@ try {
   // Create the table
   await connection.queryObject`
     CREATE TABLE IF NOT EXISTS problems (
-      lat REAL,
-      lng REAL,
+      lat double precision,
+      lng double precision,
       timestamp TEXT NOT NULL,
       subject TEXT NOT NULL
     )
