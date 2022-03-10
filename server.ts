@@ -8,7 +8,7 @@ console.log(Deno.env.get("DATABASE_URL"));
 const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
 const pool = new postgres.Pool(databaseUrl, 3, true);
-
+/*
 // Connect to the database
 const connection = await pool.connect();
 try {
@@ -25,7 +25,7 @@ try {
   // Release the connection back into the pool
   connection.release();
 }
-
+*/
 serve((req) => {
     const url = new URL(req.url);
     const pathname = url.pathname;
