@@ -8,6 +8,7 @@ serve((req) => {
     const pathname = url.pathname;
 
     console.log("Request:", req.method, pathname);
+    console.log("DATABASE_URL");
 
     // /api/ で始まる場合、API サーバっぽく処理して返す
     if (pathname.startsWith("/api/")) {

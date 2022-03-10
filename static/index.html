@@ -19,7 +19,6 @@
         this.currentLocation = currentLocation;
         this.timestamp = Date(timestamp);
         this.subject = subject;
-
       }
     }
     const subject = `たすけてください`
@@ -84,6 +83,9 @@
       globalMap.removeLayer(cLocation);
     }
     
+    const makeMarker = () =>{
+      console.log("マーカーを設置");
+    }
   </script>   
 </head>
 <body onload="createMap()">
