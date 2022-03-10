@@ -24,7 +24,8 @@
       }
     }
     const loadMark=()=>{
-      fetchJSON("/api/problems");
+      let tmp = await fetchJSON("/api/problems");
+      console.log(tmp);
 
     }
     const subject = `たすけてください`
