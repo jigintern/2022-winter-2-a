@@ -145,6 +145,9 @@ const apiGetJSON = async (req: Request) =>{
         `;
         console.log(sql);
         await connection.queryObject(sql);
+        const result = await connection.queryObject("SELECT * FROM problems")
+        console.log(result);
+        
     }finally {
         connection.release();
     }
@@ -164,3 +167,5 @@ try {
   connection.release();
 }
 */
+
+
