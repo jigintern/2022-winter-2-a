@@ -141,7 +141,7 @@ const apiGetJSON = async (req: Request) =>{
     // Insert the new todo into the database
     try{
         const sql = `
-        INSERT INTO problems (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat},${json.currentLocation.lng},'${json.timestamp}','${json.subject}')
+        INSERT INTO problems (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat},${json.currentLocation.lng},NOW(),'${json.subject}')
         `;
         console.log(sql);
         await connection.queryObject(sql);
