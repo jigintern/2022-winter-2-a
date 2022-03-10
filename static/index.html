@@ -49,7 +49,7 @@
         let timestamptag = `${data[0].timestamp}</br>` ;
         cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
         
-        a = fetchJSON("/api/getjson",data[0]);
+        a = await fetchJSON("/api/getjson",data[0]);
         console.log(data[0]);
         console.log(a);
           
