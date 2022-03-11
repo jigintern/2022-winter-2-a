@@ -33,6 +33,7 @@
     const subject = `たすけてください`
     const solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
     function createMap(){
+     
       loadMark();
       const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
       map.setView([35.40, 136], 5);
@@ -88,7 +89,7 @@
       alert('解決できました');
       console.log(cLocation);
       globalMap.removeLayer(cLocation);
-      let solve = fetchJSON("/api/solved",data[0])
+      let solve = fetchJSON("/api/solved",{id: 1});
     }
     
     const makeMarker = () =>{

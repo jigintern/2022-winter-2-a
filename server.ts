@@ -50,6 +50,7 @@ serve((req) => {
                 return apiProblems(req);
             case "/api/solved":
                 return apiSolved(req);
+        
         }
     }
 
@@ -185,7 +186,7 @@ const apiSolved = async (req: Request) =>{
     const connection = await pool.connect();
 
     try{
-        const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solve.ID}`)
+        const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solve.id}`)
         console.log(result);
         
         
