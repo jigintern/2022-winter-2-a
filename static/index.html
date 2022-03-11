@@ -9,7 +9,7 @@
 
   <script type="module">
     import {fetchJSON} from "./fetch.js";
-    const jsondata = fetchJSON("/api/problems")
+    const jsondata = await fetchJSON("/api/problems")
     console.log(jsondata);
     /*
     let currentLocation;
