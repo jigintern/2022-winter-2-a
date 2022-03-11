@@ -109,14 +109,14 @@
       subject = document.getElementById("input");
       console.log(subject.value);
       console.log(location)
-      //map.on('locationfound',currentLocation)
+      data.push(new caseData(location.latlng,location.timestamp,subject.value));
+      console.log(data);
+      await fetchJSON("/api/getjson",data);  
     }
     
     const currentLocation= async(e) =>{
       console.log(e.latlng);
-      data.push(new caseData(e.latlng,e.timestamp,subject.value));
-      console.log(data);
-      await fetchJSON("/api/getjson",data);  
+      
     }
   
     
