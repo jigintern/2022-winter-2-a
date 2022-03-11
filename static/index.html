@@ -15,11 +15,11 @@
     let currentLocation;
     let timestamp;*/
     let jsondata;
-    let cLocation;
     let globalMap;
     let data = [];
     let a;
     let id=[]
+    let location
     
     class caseData{
       constructor(currentLocation,timestamp,subject){
@@ -37,7 +37,7 @@
   
 
     }
-    const subject = `たすけてください`
+    let subject;
    
     function createMap(){
       
@@ -58,12 +58,9 @@
       osm.addTo(map);
 
       async function onLocationFound(e) {
-        data.push(new caseData(e.latlng,e.timestamp,subject));
-        a = await fetchJSON("/api/getjson",data[0]);
-        console.log(data[0]);
-        console.log(a);
+        
         await loadMark();
-
+        location = e
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
@@ -109,10 +106,12 @@
     
     const submit=()=>{
       console.log("提出");
-      document.getElementById("")
+      subject = document.getElementById("input");
+      data.push(new caseData(e.latlng,e.timestamp,subject));
+      a = await fetchJSON("/api/getjson",data[0]);  
     }
     
-    
+  
     
     module.createMap=createMap;
     module.deleteProblem=deleteProblem;
