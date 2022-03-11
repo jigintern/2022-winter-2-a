@@ -14,6 +14,7 @@
     /*
     let currentLocation;
     let timestamp;*/
+    let jsondata;
     let cLocation;
     let globalMap;
     let data = [];
@@ -28,9 +29,11 @@
     }
     const loadMark= async()=>{
       let tmp = await fetchJSON("/api/problems");
-      const jsondata = await fetchJSON("/api/problems");
+      jsondata = await fetchJSON("/api/problems");
       console.log(jsondata);
       console.log(tmp[0].lat);
+      
+  
 
     }
     const subject = `たすけてください`
@@ -55,20 +58,30 @@
 
       async function onLocationFound(e) {
         data.push(new caseData(e.latlng,e.timestamp,subject));
+        
         console.log(data[0]);
         let subjecttag = `${data[0].subject}</br>`;
         let timestamptag = `${data[0].timestamp}</br>` ;
         cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
-        
+      
         a = await fetchJSON("/api/getjson",data[0]);
         console.log(data[0]);
         console.log(a);
+        let i =0
+
+        jsondata.forEach((item,index)=>{
+          let subjecttag = `${item.subject}</br>`;
+          let timestamptag = `${item.timestamp}</br>` ;
+            L.marker([item.lat,item.lng]).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
+        })
           
       }
       
       async function onLocationError(e) {
           alert("現在地を取得できませんでした。" + e.message);
       }
+
+
  
       map.on('locationfound', onLocationFound);
       map.on('locationerror', onLocationError);
