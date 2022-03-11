@@ -1,7 +1,48 @@
 body {
-  background-color: lightblue;
+  background-color: rgb(246, 247, 201);
 }
 
-.title-img {
-  border-radius: 10px;
+.title {
+  text-align: center;
+}
+
+#mapcontainer {
+  width: 80%;
+  margin: auto;
+  height: 500px;
+  z-index: 0;
+}
+
+.helpbutton {
+  background: #ffffff;
+  font-size: 120%;
+  border-radius: 5px;
+}
+
+.helpbutton:hover {
+  background: #ffa5a5;
+}
+
+.Inputpart {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.problemtextbox {
+  margin-top: auto;
+  margin-right: 20px;
+  font-size: 300%;
+  border-radius: 15px;
+}
+
+.problemsendbutton {
+  color: rgb(255, 255, 255);
+  background-color: #2600ff;
+  font-size: 300%;
+  border-radius: 15px;
+}
+
+.problemsendbutton:hover {
+  color: rgb(255, 255, 255);
+  background: #0300a8;
 }
