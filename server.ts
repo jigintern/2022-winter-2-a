@@ -185,7 +185,7 @@ const apiSolved = async (req: Request) =>{
     const connection = await pool.connect();
 
     try{
-        const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solve.id}`)
+        const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solve.ID}`)
         console.log(result);
         
         
