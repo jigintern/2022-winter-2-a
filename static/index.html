@@ -20,6 +20,7 @@
     //let send;
     let id=[]
     let location
+    let clickedLocation;
     const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
     class caseData{
       constructor(currentLocation,timestamp,subject){
@@ -79,10 +80,13 @@
       }
 
 
+      async function clicked(e){
+        clickedLocation = e;
+      }
  
       map.on('locationfound', onLocationFound);
       map.on('locationerror', onLocationError);
- 
+      map.on('click', clicked);
       map.locate({setView: true, maxZoom: 16, timeout: 20000});
       
 
@@ -109,7 +113,7 @@
       subject = document.getElementById("input");
       console.log(subject.value);
       console.log(location)
-      let data = new caseData(location.latlng,location.timestamp,subject.value);
+      let data = new caseData(clickedLocation.latlng,clickedLocation.timestamp,subject.value);
       console.log(data);
       await fetchJSON("/api/getjson",data);  
     }
@@ -140,6 +144,7 @@
     <div class="Inputpart">
      <input class="problemtextbox" placeholder="困っている内容" type="text" id ="input"/>
      <button class="problemsendbutton" onclick="module.submit()">送信</button>
+     
     </div>
     <p class="toUse">
       <h2>使い方</h2>
