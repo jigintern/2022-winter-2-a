@@ -15,11 +15,11 @@
     let currentLocation;
     let timestamp;*/
     let jsondata;
-    let cLocation;
     let globalMap;
     let data = [];
     let a;
     let id=[]
+    let location
     
     class caseData{
       constructor(currentLocation,timestamp,subject){
@@ -37,7 +37,7 @@
   
 
     }
-    const subject = `たすけてください`
+    let subject;
    
     function createMap(){
       
@@ -58,12 +58,9 @@
       osm.addTo(map);
 
       async function onLocationFound(e) {
-        data.push(new caseData(e.latlng,e.timestamp,subject));
-        a = await fetchJSON("/api/getjson",data[0]);
-        console.log(data[0]);
-        console.log(a);
+        
         await loadMark();
-
+        location = e
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
@@ -85,16 +82,9 @@
  
       map.on('locationfound', onLocationFound);
       map.on('locationerror', onLocationError);
-      
-      const mpoint = [35.8627, 139.6072];
  
       map.locate({setView: true, maxZoom: 16, timeout: 20000});
 
-     
-      //埼玉大学の位置にドラッグ可能なマーカーを地図に追加
-      L.marker(mpoint,{title:"埼玉大学",draggable:true}).addTo(map);
-      //桜区役所のマーカーを追加
-      L.marker([35.8561,139.6098],{title:"桜区役所"}).addTo(map);
 
       globalMap=map;
     }
@@ -114,11 +104,20 @@
       console.log("マーカーを設置");
     }
     
- 
+    const submit=()=>{
+      console.log("提出");
+      subject = document.getElementById("input");
+      data.push(new caseData(location.latlng,location.timestamp,subject));
+      a = await fetchJSON("/api/getjson",data);  
+      window.reload();
+    }
+    
+  
     
     module.createMap=createMap;
     module.deleteProblem=deleteProblem;
     module.loadMark=loadMark;
+    module.submit = submit;
     
   </script>   
 
@@ -133,8 +132,8 @@
     <div id="mapcontainer"
     ></div>
     <div class="Inputpart">
-     <input class="problemtextbox" placeholder="困っている内容" type="text"/>
-     <button class="problemsendbutton">送信</button>
+     <input class="problemtextbox" placeholder="困っている内容" type="text" id ="input"/>
+     <button class="problemsendbutton" onclick="module.submit()">送信</button>
     </div>
     <p class="toUse">
       <h2>使い方</h2>
