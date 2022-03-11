@@ -106,8 +106,8 @@
     
     function submit(){
       console.log("提出");
-      ///subject = document.getElementById("input");
-      //data.push(new caseData(e.latlng,e.timestamp,subject));
+      subject = document.getElementById("input");
+      data.push(new caseData(e.latlng,e.timestamp,subject.value));
       //a = await fetchJSON("/api/getjson",data[0]);  
     }
     
