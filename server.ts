@@ -23,6 +23,7 @@ try {
       subject TEXT NOT NULL
     )
   `;
+  /*
   await connection.queryObject`
   CREATE TABLE IF NOT EXISTS solved (
     ID SERIAL NOT NULL,
@@ -32,6 +33,7 @@ try {
     subject TEXT NOT NULL,
   )
   `
+  */
 } finally {
   // Release the connection back into the pool
   connection.release();
