@@ -37,7 +37,7 @@
 
     }
     const subject = `たすけてください`
-    const solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
+   
     function createMap(){
       
       loadMark();
@@ -62,6 +62,7 @@
         console.log(data[0]);
         let subjecttag = `${data[0].subject}</br>`;
         let timestamptag = `${data[0].timestamp}</br>` ;
+        let solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
         cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
       
         a = await fetchJSON("/api/getjson",data[0]);
@@ -72,6 +73,7 @@
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
+          let solve =`<input type="button" value="解決" onclick="module.deleteProblem(${item.lat},${item.lng})">`
             L.marker([item.lat,item.lng]).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
         })
           
@@ -101,10 +103,10 @@
     
    
 
-    const deleteProblem = () =>{
+    const deleteProblem = (lat,lng) =>{
       alert('解決できました');
       console.log(cLocation);
-      globalMap.removeLayer(cLocation);
+      globalMap.removeLayer([lat,lng]);
       let solve = fetchJSON("/api/solved",{id: 1});
     }
     
