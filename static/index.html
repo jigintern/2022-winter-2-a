@@ -136,6 +136,7 @@
         id.forEach((item,index)=>{
           let tmp = map.removeLayer(item[0])
         })
+        id = [];
         await loadMark();
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
