@@ -122,6 +122,7 @@
       }
       console.log(data);
       await fetchJSON("/api/getjson",data);  
+      window.reload();
     }
     
     const currentLocation= async(e) =>{
