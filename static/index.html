@@ -17,7 +17,7 @@
     let jsondata;
     let globalMap;
     let data = [];
-    let a;
+    let send;
     let id=[]
     let location
     
@@ -105,13 +105,13 @@
       console.log("マーカーを設置");
     }
     
-    function submit(location){
+    function submit(location,send){
       
       subject = document.getElementById("input");
       console.log(subject.value);
       data.push(new caseData(location.latlng,location.timestamp,subject.value));
       console.log(data);
-      //a = await fetchJSON("/api/getjson",data[0]);  
+      send = await fetchJSON("/api/getjson",data[0]);  
     }
     
   
@@ -135,7 +135,7 @@
     ></div>
     <div class="Inputpart">
      <input class="problemtextbox" placeholder="困っている内容" type="text" id ="input"/>
-     <button class="problemsendbutton" onclick="module.submit(location)">送信</button>
+     <button class="problemsendbutton" onclick="module.submit(location,send)">送信</button>
     </div>
     <p class="toUse">
       <h2>使い方</h2>
