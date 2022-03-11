@@ -39,7 +39,7 @@
     }
     let subject;
    
-    const createMap=()=>{
+    function createMap(){
       
       loadMark();
       const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
@@ -126,7 +126,7 @@
   </script>
 
 </head>
-<body onload = "createMap()">
+<body onload = "module.createMap()">
   <header>
     <h1 class="title">      
       <img src="./img/tohelp.png">      
