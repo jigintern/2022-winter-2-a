@@ -10,7 +10,8 @@ img {
 }
 
 .title {
-  width: 900px;
+  margin:auto 0;
+  margin-bottom: 20px;
   text-align: center;
   font-size: 300%;
   border-bottom: solid 3px black;
