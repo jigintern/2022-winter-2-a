@@ -62,7 +62,7 @@
         a = await fetchJSON("/api/getjson",data[0]);
         console.log(data[0]);
         console.log(a);
-        loadMark();
+        await loadMark();
 
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
