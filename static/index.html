@@ -16,7 +16,7 @@
     let timestamp;*/
     let jsondata;
     let globalMap;
-    let data = [];
+    
     //let send;
     let id=[]
     let location
@@ -109,9 +109,9 @@
       subject = document.getElementById("input");
       console.log(subject.value);
       console.log(location)
-      data.push(new caseData(location.latlng,location.timestamp,subject.value));
+      let data = new caseData(location.latlng,location.timestamp,subject.value));
       console.log(data);
-      await fetchJSON("/api/getjson",data[0]);  
+      await fetchJSON("/api/getjson",data);  
     }
     
     const currentLocation= async(e) =>{
