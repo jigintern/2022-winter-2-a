@@ -15,6 +15,7 @@ try {
   // Create the table
   await connection.queryObject`
     CREATE TABLE IF NOT EXISTS problems (
+      ID SERIAL NOT NULL,
       lat double precision,
       lng double precision,
       timestamp TEXT NOT NULL,
@@ -182,7 +183,7 @@ const apiSolved = async (req: Request) =>{
     let solve;
     solve = (await req.json()) as ID;
     const connection = await pool.connect();
-    
+
     try{
         const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solve.id}`)
         console.log(result);
