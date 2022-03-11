@@ -62,7 +62,6 @@
         await loadMark();
         location = e;
         console.log(e.latlng);
-        console.log(location.latlng);
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
@@ -106,7 +105,7 @@
       console.log("マーカーを設置");
     }
     
-    function submit(){
+    function submit(location){
       
       subject = document.getElementById("input");
       console.log(subject.value);
@@ -136,7 +135,7 @@
     ></div>
     <div class="Inputpart">
      <input class="problemtextbox" placeholder="困っている内容" type="text" id ="input"/>
-     <button class="problemsendbutton" onclick="module.submit()">送信</button>
+     <button class="problemsendbutton" onclick="module.submit(location)">送信</button>
     </div>
     <p class="toUse">
       <h2>使い方</h2>
