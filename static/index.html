@@ -9,8 +9,8 @@
 
   <script type="module">
     import {fetchJSON} from "./fetch.js";
-    const jsondata = await fetchJSON("/api/problems")
-    console.log(jsondata);
+    
+    
     /*
     let currentLocation;
     let timestamp;*/
@@ -28,13 +28,15 @@
     }
     const loadMark= async()=>{
       let tmp = await fetchJSON("/api/problems");
+      const jsondata = await fetchJSON("/api/problems");
+      console.log(jsondata);
       console.log(tmp[0].lat);
 
     }
     const subject = `たすけてください`
     const solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
     function createMap(){
-     
+      
       loadMark();
       const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
       map.setView([35.40, 136], 5);
