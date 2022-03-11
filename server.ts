@@ -50,6 +50,8 @@ serve((req) => {
                 return apiProblems(req);
             case "/api/solved":
                 return apiSolved(req);
+            case "/api/givejson":
+                return jsonGive(req);
         
         }
     }
@@ -145,6 +147,15 @@ type SOSdata = {
 type ID = {
     id: number;
 }
+
+type Marker ={
+    lat: number;
+    lng: number;
+    timestamp: string;
+    subject: string;
+    id: number;
+    
+}
 const apiGetJSON = async (req: Request) =>{
     const connection = await pool.connect();
     const json = (await req.json()) as SOSdata;
@@ -197,7 +208,17 @@ const apiSolved = async (req: Request) =>{
 
     return createJsonResponse({message:"deleteproblem"});
 }
+/*
+const jsonGive = async(req: Request)=>{
+    let markerdata;
 
+    const connection = await pool.connect();
+    try{
+        const result = await connection.queryObject(`SELECT *FROM problems`)
+    }
+
+}
+*/
 /*
 // データベースに保存
 const connection = await pool.connect();
