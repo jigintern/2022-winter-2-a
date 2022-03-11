@@ -109,7 +109,7 @@
       subject = document.getElementById("input");
       console.log(subject.value);
       console.log(location)
-      let data = new caseData(location.latlng,location.timestamp,subject.value));
+      let data = new caseData(location.latlng,location.timestamp,subject.value);
       console.log(data);
       await fetchJSON("/api/getjson",data);  
     }
