@@ -13,6 +13,7 @@ const pool = new postgres.Pool(databaseUrl, 3, true);
 const connection = await pool.connect();
 try {
   // Create the table
+  
   await connection.queryObject`
     CREATE TABLE IF NOT EXISTS problems (
       ID SERIAL NOT NULL,
@@ -22,6 +23,15 @@ try {
       subject TEXT NOT NULL
     )
   `;
+  await connection.queryObject`
+  CREATE TABLE IF NOT EXISTS solved (
+    ID SERIAL NOT NULL,
+    lat double precision,
+    lng double precision,
+    timestamp TEXT NOT NULL,
+    subject TEXT NOT NULL,
+  )
+  `
 } finally {
   // Release the connection back into the pool
   connection.release();
@@ -192,14 +202,17 @@ const apiProblems = async (req: Request) =>{
 }
 const apiSolved = async (req: Request) =>{
     let solve;
+    //let json;
+    //json = (await req.json()) as SOSdata;
     solve = (await req.json()) as ID;
     const connection = await pool.connect();
+
 
     try{
         console.log(solve.id);
         const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solve.id}`)
-        console.log(result);
-        
+        //console.log(result);
+        //const send = await connection.queryObject(`INSERT INTO solved (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat},${json.currentLocation.lng},NOW(),'${json.subject}')`)
         
     }finally {
         connection.release();
