@@ -4,8 +4,9 @@ import { format } from "https://deno.land/std@0.127.0/datetime/mod.ts";
 import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
 
 console.log("Listening on http://localhost:8000");
-const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
+const databaseUrl = Deno.env.get("DATABASE_URL")!;
+console.log(databaseUrl);
 const pool = new postgres.Pool(databaseUrl, 3, true);
 
 // Connect to the database
@@ -14,8 +15,9 @@ try {
   // Create the table
   await connection.queryObject`
     CREATE TABLE IF NOT EXISTS problems (
-      lat SERIAL PRIMARY KEY,
-      lng SERIAL,
+      ID SERIAL NOT NULL,
+      lat double precision,
+      lng double precision,
       timestamp TEXT NOT NULL,
       subject TEXT NOT NULL
     )
@@ -44,6 +46,10 @@ serve((req) => {
                 return apiReverse(req);
             case "/api/getjson":
                 return apiGetJSON(req);
+            case "/api/problems":
+                return apiProblems(req);
+            case "/api/solved":
+                return apiSolve(req);
         }
     }
 
@@ -134,20 +140,60 @@ type SOSdata = {
     currentLocation: point;
     timestamp: string;
 }
+
 const apiGetJSON = async (req: Request) =>{
+    const connection = await pool.connect();
     const json = (await req.json()) as SOSdata;
     // Insert the new todo into the database
+    
     try{
-        await connection.queryObject`
-        INSERT INTO problems (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat,json.currentLocation.lng,json.timestamp,json.subject})
+        const sql = `
+        INSERT INTO problems (lat,lng,timestamp,subject) VALUES (${json.currentLocation.lat},${json.currentLocation.lng},NOW(),'${json.subject}')
         `;
+        console.log(sql);
+        await connection.queryObject(sql);
+        
     }finally {
         connection.release();
     }
+
     
-    return createJsonResponse({message: json});
+    return createJsonResponse({message: "success"});
 }
 
+const apiProblems = async (req: Request) =>{
+    let problems;
+    const connection = await pool.connect();
+    
+    try{
+        const result = await connection.queryObject("SELECT * FROM problems")
+        console.log(result);
+        problems = result.rows
+        
+    }finally {
+        connection.release();
+    }
+
+    return createJsonResponse(problems);
+}
+type solveData ={
+    ID: number;
+}
+const apiSolve =async (req: Request) => {
+    const solved = (await req.json()) as solveData
+    const connection = await pool.connect();
+    
+    try{
+        const result = await connection.queryObject(`DELETE FROM problems WHERE ID = ${solved.ID} `)
+        console.log(result);
+        
+    }finally {
+        connection.release();
+    }
+
+
+    return createJsonResponse({message:"problem deleted"});
+}
 /*
 // データベースに保存
 const connection = await pool.connect();
@@ -159,3 +205,5 @@ try {
   connection.release();
 }
 */
+
+

@@ -15,17 +15,53 @@
       /*
     let currentLocation;
     let timestamp;*/
-      let cLocation;
-      let globalMap;
-      let data = [];
-      let a;
 
-      class caseData {
-        constructor(currentLocation, timestamp, subject) {
-          this.currentLocation = currentLocation;
-          this.timestamp = Date(timestamp);
-          this.subject = subject;
-        }
+    let cLocation;
+    let globalMap;
+    let data = [];
+    let a;
+    
+    class caseData{
+      constructor(currentLocation,timestamp,subject){
+        this.currentLocation = currentLocation;
+        this.timestamp = Date(timestamp);
+        this.subject = subject;
+      }
+    }
+    const loadMark= async()=>{
+      let tmp = await fetchJSON("/api/problems");
+      let dele = await fetchJSON("/api/solved", {ID:tmp[0].id});
+
+    }
+    const subject = `たすけてください`
+    const solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
+    function createMap(){
+      loadMark();
+      const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
+      map.setView([35.40, 136], 5);
+      L.control.scale({maxWidth:200,position:'bottomright',imperial:false}).addTo(map);
+      L.control.zoom({position:'bottomright'}).addTo(map);
+   
+      //オープンストリートマップのタイル
+      const osm = L.tileLayer('https://tile.openstreetmap.jp/{z}/{x}/{y}.png',
+        {  attribution: "<a href='https://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors" });
+      //baseMapsオブジェクトのプロパティに3つのタイルを設定
+      
+      //layersコントロールにbaseMapsオブジェクトを設定して地図に追加
+      //コントロール内にプロパティ名が表示される
+      
+      osm.addTo(map);
+
+      async function onLocationFound(e) {
+        data.push(new caseData(e.latlng,e.timestamp,subject));
+        console.log(data[0]);
+        let subjecttag = `${data[0].subject}</br>`;
+        let timestamptag = `${data[0].timestamp}</br>` ;
+        cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
+        
+        a = await fetchJSON("/api/getjson",data[0]);
+        console.log(data[0]);
+        console.log(a);
       }
       const subject = `たすけてください`;
       const solve = `<input type="button" value="解決!" onclick="module.deleteProblem()">`;
@@ -85,20 +121,43 @@
 
         globalMap = map;
       }
+      
+      map.on('locationfound', onLocationFound);
+      map.on('locationerror', onLocationError);
+      
+      const mpoint = [35.8627, 139.6072];
+ 
+      map.locate({setView: true, maxZoom: 16, timeout: 20000});
 
-      const deleteProblem = () => {
-        alert("解決できました");
-        console.log(cLocation);
-        globalMap.removeLayer(cLocation);
-      };
+     
+      //埼玉大学の位置にドラッグ可能なマーカーを地図に追加
+      L.marker(mpoint,{title:"埼玉大学",draggable:true}).addTo(map);
+      //桜区役所のマーカーを追加
+      L.marker([35.8561,139.6098],{title:"桜区役所"}).addTo(map);
 
-      const makeMarker = () => {
-        console.log("マーカーを設置");
-      };
+      globalMap=map;
+    }
+    
+   
 
-      module.createMap = createMap;
-      module.deleteProblem = deleteProblem;
-    </script>
+    const deleteProblem = () =>{
+      alert('解決できました');
+      console.log(cLocation);
+      globalMap.removeLayer(cLocation);
+    }
+    
+    const makeMarker = () =>{
+      console.log("マーカーを設置");
+    }
+    
+ 
+    
+    module.createMap=createMap;
+    module.deleteProblem=deleteProblem;
+    module.loadMark=loadMark;
+    
+  </script>   
+
 
     <script>
       const module = {};
