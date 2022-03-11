@@ -109,6 +109,7 @@
       subject = document.getElementById("input");
       console.log(subject.value);
       map.on('locationfound',currentLocation)
+      currentLocation();
     }
     
     const currentLocation= async(e) =>{
