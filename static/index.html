@@ -122,12 +122,31 @@
       }
       console.log(data);
       await fetchJSON("/api/getjson",data);  
-      window.reload();
+      await reloadMarker();
+      
     }
     
     const currentLocation= async(e) =>{
       console.log(e.latlng);
       
+    }
+    const reloadMarker = async()=>{
+      
+        
+        id.forEach((item,index)=>{
+          let tmp = map.removeLayer(item[0])
+        })
+        await loadMark();
+        jsondata.forEach((item,index)=>{
+          let subjecttag = `${item.subject}</br>`;
+          let timestamptag = `${item.timestamp}</br>` ;
+          let num = item.id;
+          
+          let solve =`<input type="button" value="解決" onclick="module.deleteProblem(${num})">`
+          console.log(solve);
+          let tmp = L.marker([item.lat,item.lng]).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
+            id.push([tmp,item.id]);
+        })
     }
   
     
