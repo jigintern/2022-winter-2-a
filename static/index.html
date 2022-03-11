@@ -108,7 +108,7 @@
       
       subject = document.getElementById("input");
       console.log(subject.value);
-     
+      const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
       map.on('locationfound',currentLocation)
     }
     
