@@ -50,8 +50,7 @@ serve((req) => {
                 return apiProblems(req);
             case "/api/solved":
                 return apiSolved(req);
-            case "/api/givejson":
-                return jsonGive(req);
+        
         
         }
     }
