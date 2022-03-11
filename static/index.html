@@ -82,6 +82,7 @@
 
       async function clicked(e){
         clickedLocation = e;
+        alert("座標を指定しました。")
       }
  
       map.on('locationfound', onLocationFound);
@@ -113,7 +114,12 @@
       subject = document.getElementById("input");
       console.log(subject.value);
       console.log(location)
-      let data = new caseData(clickedLocation.latlng,clickedLocation.timestamp,subject.value);
+      let data;
+      if(clickedLocation != null){
+        data = new caseData(clickedLocation.latlng,clickedLocation.timestamp,subject.value);
+      }else{
+        data = new caseData(location.latlng,location.timestamp,subject.value);
+      }
       console.log(data);
       await fetchJSON("/api/getjson",data);  
     }
