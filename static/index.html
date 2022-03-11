@@ -107,8 +107,9 @@
 
     const deleteProblem = (num) =>{
       alert('解決できました');
-      console.log(cLocation);
+      console.log(id.find(element=> element.id==num))
       globalMap.removeLayer(id.find(element=> element.id==num));
+      
       let solve = fetchJSON("/api/solved",{id: num});
     }
     
