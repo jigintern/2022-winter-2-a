@@ -84,7 +84,7 @@
       map.on('locationerror', onLocationError);
  
       map.locate({setView: true, maxZoom: 16, timeout: 20000});
-      console.log(location);
+      
 
       globalMap=map;
     }
@@ -108,8 +108,8 @@
       
       subject = document.getElementById("input");
       console.log(subject.value);
-      map.on('locationfound',currentLocation)
-      currentLocation();
+      console.log(location)
+      //map.on('locationfound',currentLocation)
     }
     
     const currentLocation= async(e) =>{
@@ -139,7 +139,7 @@
     ></div>
     <div class="Inputpart">
      <input class="problemtextbox" placeholder="困っている内容" type="text" id ="input"/>
-     <button class="problemsendbutton" onclick="module.submit(location)">送信</button>
+     <button class="problemsendbutton" onclick="module.submit()">送信</button>
     </div>
     <p class="toUse">
       <h2>使い方</h2>
