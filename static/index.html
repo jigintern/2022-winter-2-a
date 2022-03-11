@@ -103,14 +103,14 @@
     const makeMarker = () =>{
       console.log("マーカーを設置");
     }
-    
+    /*
     const submit=()=>{
       console.log("提出");
       subject = document.getElementById("input");
       data.push(new caseData(e.latlng,e.timestamp,subject));
       a = await fetchJSON("/api/getjson",data[0]);  
     }
-    
+    */
   
     
     module.createMap=createMap;
@@ -125,14 +125,14 @@
   </script>
 
 </head>
-<body onload = "module.makeMarker()">
+<body onload = "module.createMap()">
   
     <h1 class="title">困ってる人マップ</h1>
     <div id="mapcontainer"
     ></div>
     <div class="Inputpart">
      <input class="problemtextbox" placeholder="困っている内容" type="text" id ="input"/>
-     <button class="problemsendbutton" >送信</button>
+     <button class="problemsendbutton" onclick="module.submit()">送信</button>
     </div>
     <p class="toUse">
       <h2>使い方</h2>
