@@ -76,7 +76,7 @@
           let timestamptag = `${item.timestamp}</br>` ;
           let solve =`<input type="button" value="解決" onclick="module.deleteProblem(${item.id})">`
           let tmp = L.marker([item.lat,item.lng]).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
-            id.push(tmp);
+            id.push([tmp,item.id]);
         })
         console.log(id);
       }
@@ -107,8 +107,8 @@
 
     const deleteProblem = (num) =>{
       alert('解決できました');
-      console.log(id.find(element=> element.id==num));
-      globalMap.removeLayer(id.find(element=> element.id==num));
+      console.log(id.find(element=> element[1]==num));
+      globalMap.removeLayer(id.find(element=> element[1]==num)[0]);
       
       let solve = fetchJSON("/api/solved",{id: num});
     }
