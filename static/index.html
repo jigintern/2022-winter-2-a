@@ -108,28 +108,38 @@
 
 </head>
 <body onload = "module.createMap()">
-  
-    <h1 class="title">困ってる人マップ</h1>
-    <div id="mapcontainer"
-    ></div>
+  <header>
+    <h1 class="title">      
+      <img src="./img/tohelp.png">      
+      困ってる人マップ                      
+      <img src="./img/help.png">
+
+    </h1>
+  </header>
+    
+    <div id="mapcontainer"></div>
     <div class="Inputpart">
      <input class="problemtextbox" placeholder="困っている内容" type="text"/>
      <button class="problemsendbutton">送信</button>
     </div>
-    <p class="toUse">
-      <h2>使い方</h2>
+    <p >
+      <h2 class="toUse">使い方</h2>
       <ul>
         <li>
-          <h3>困ってる方</h3>
+          <h3 class="targetperson">困ってる方</h3>
+          <p>
           困っている内容を上の入力欄に入力して送信ボタンを押してください！
           <br>位置情報、時間、困っている内容が送信され、マップ上にピンが出現します。
           <br>誰かが助けに来てくれるのを待ちましょう。
+          </p>
         </li>
         <li>
-          <h3>助ける方</h3>
-            マップ上のピンに困っている方がいます。
+          <h3 class="targetperson">助ける方</h3>
+          <p>
+          マップ上のピンに困っている方がいます。
           <br>ピンを押すと困っている内容、送信された時間が表示されています。
-          <br>解決したら解決ボタンを押してください
+          <br>解決したら解決ボタンを押してください。
+          </p>
         </li>
       </ul>
     </p>
