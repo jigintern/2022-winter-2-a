@@ -111,7 +111,7 @@
       console.log(location)
       data.push(new caseData(location.latlng,location.timestamp,subject.value));
       console.log(data);
-      await fetchJSON("/api/getjson",data);  
+      await fetchJSON("/api/getjson",data[0]);  
     }
     
     const currentLocation= async(e) =>{
