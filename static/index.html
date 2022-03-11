@@ -10,16 +10,16 @@
   <script type="module">
     import {fetchJSON} from "./fetch.js";
     
-    console.log("start")
+    
     /*
     let currentLocation;
     let timestamp;*/
     let jsondata;
+    let cLocation;
     let globalMap;
     let data = [];
     let a;
     let id=[]
-    let location
     
     class caseData{
       constructor(currentLocation,timestamp,subject){
@@ -37,7 +37,7 @@
   
 
     }
-    let subject;
+    const subject = `たすけてください`
    
     function createMap(){
       
@@ -58,9 +58,12 @@
       osm.addTo(map);
 
       async function onLocationFound(e) {
-        
+        data.push(new caseData(e.latlng,e.timestamp,subject));
+        a = await fetchJSON("/api/getjson",data[0]);
+        console.log(data[0]);
+        console.log(a);
         await loadMark();
-        location = e
+
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
@@ -106,13 +109,10 @@
     
     const submit=()=>{
       console.log("提出");
-      subject = document.getElementById("input");
-      data.push(new caseData(location.latlng,location.timestamp,subject));
-      a = await fetchJSON("/api/getjson",data);  
-      
+      document.getElementById("")
     }
     
-  
+    
     
     module.createMap=createMap;
     module.deleteProblem=deleteProblem;
@@ -123,43 +123,32 @@
 
   <script>
     const module = {}
-    console.log(module);
   </script>
 
 </head>
 <body onload = "module.createMap()">
-  <header>
-    <h1 class="title">      
-      <img src="./img/tohelp.png">      
-      困ってる人マップ                      
-      <img src="./img/help.png">
-
-    </h1>
-  </header>
-    
-    <div id="mapcontainer"></div>
+  
+    <h1 class="title">困ってる人マップ</h1>
+    <div id="mapcontainer"
+    ></div>
     <div class="Inputpart">
-     <input class="problemtextbox" placeholder="困っている内容" type="text" id ="input"/>
+     <input class="problemtextbox" placeholder="困っている内容" type="text"/>
      <button class="problemsendbutton" onclick="module.submit()">送信</button>
     </div>
-    <p >
-      <h2 class="toUse">使い方</h2>
+    <p class="toUse">
+      <h2>使い方</h2>
       <ul>
         <li>
-          <h3 class="targetperson">困ってる方</h3>
-          <p>
+          <h3>困ってる方</h3>
           困っている内容を上の入力欄に入力して送信ボタンを押してください！
           <br>位置情報、時間、困っている内容が送信され、マップ上にピンが出現します。
           <br>誰かが助けに来てくれるのを待ちましょう。
-          </p>
         </li>
         <li>
-          <h3 class="targetperson">助ける方</h3>
-          <p>
-          マップ上のピンに困っている方がいます。
+          <h3>助ける方</h3>
+            マップ上のピンに困っている方がいます。
           <br>ピンを押すと困っている内容、送信された時間が表示されています。
-          <br>解決したら解決ボタンを押してください。
-          </p>
+          <br>解決したら解決ボタンを押してください
         </li>
       </ul>
     </p>
