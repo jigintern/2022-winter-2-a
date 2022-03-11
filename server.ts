@@ -23,7 +23,7 @@ try {
       subject TEXT NOT NULL
     )
   `;
-  /*await connection.queryObject`
+  await connection.queryObject`
   CREATE TABLE IF NOT EXISTS solved (
     ID SERIAL NOT NULL,
     lat double precision,
@@ -31,7 +31,7 @@ try {
     timestamp TEXT NOT NULL,
     subject TEXT NOT NULL,
   )
-  `*/
+  `
 } finally {
   // Release the connection back into the pool
   connection.release();
