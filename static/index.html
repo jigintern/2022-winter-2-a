@@ -61,7 +61,6 @@
         
         await loadMark();
         location = e;
-        console.log(e.latlng);
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
@@ -72,7 +71,7 @@
           let tmp = L.marker([item.lat,item.lng]).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
             id.push([tmp,item.id]);
         })
-        console.log(id);
+        
       }
       
       async function onLocationError(e) {
