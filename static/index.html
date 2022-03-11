@@ -18,8 +18,8 @@
     let globalMap;
     let data = [];
     let a;
-    let id=[];
-    let location;
+    let id=[]
+    let location
     
     class caseData{
       constructor(currentLocation,timestamp,subject){
@@ -61,6 +61,7 @@
         
         await loadMark();
         location = e;
+        console.log(e);
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
