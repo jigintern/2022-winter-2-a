@@ -62,6 +62,7 @@
         await loadMark();
         location = e;
         console.log(e.latlng);
+        console.log(location.latlng);
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
