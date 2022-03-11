@@ -74,7 +74,8 @@
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
-          let num = item.id
+          let num = item.id;
+          console.log(item.id)
           let solve =`<input type="button" value="解決" onclick="module.deleteProblem(${num})">`
           let tmp = L.marker([item.lat,item.lng]).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
             id.push([tmp,item.id]);
