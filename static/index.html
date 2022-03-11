@@ -59,13 +59,6 @@
 
       async function onLocationFound(e) {
         data.push(new caseData(e.latlng,e.timestamp,subject));
-        
-        console.log(data[0]);
-        let subjecttag = `${data[0].subject}</br>`;
-        let timestamptag = `${data[0].timestamp}</br>` ;
-        let solve =`<input type="button" value="解決" onclick="module.deleteProblem()">`
-        cLocation=L.marker(data[0].currentLocation).addTo(map).bindPopup(subjecttag+timestamptag+solve).openPopup();
-      
         a = await fetchJSON("/api/getjson",data[0]);
         console.log(data[0]);
         console.log(a);
