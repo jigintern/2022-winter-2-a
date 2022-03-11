@@ -104,16 +104,19 @@
       console.log("マーカーを設置");
     }
     
-    const submit = async(location)=>{
+    const submit = async()=>{
       
       subject = document.getElementById("input");
       console.log(subject.value);
       console.log(location.latlng);
-      data.push(new caseData(location.latlng,location.timestamp,subject.value));
+      map.on('locationfound',currentLocation)
+    }
+    
+    const currentLocation= async(e) =>{
+      data.push(new caseData(e.latlng,e.timestamp,subject.value));
       console.log(data);
       await fetchJSON("/api/getjson",data);  
     }
-    
   
     
     module.createMap=createMap;
