@@ -18,8 +18,8 @@
     let globalMap;
     let data = [];
     let a;
-    let id=[]
-    let location
+    let id=[];
+    let location;
     
     class caseData{
       constructor(currentLocation,timestamp,subject){
@@ -60,7 +60,7 @@
       async function onLocationFound(e) {
         
         await loadMark();
-        location = e
+        location = e;
         jsondata.forEach((item,index)=>{
           let subjecttag = `${item.subject}</br>`;
           let timestamptag = `${item.timestamp}</br>` ;
@@ -108,7 +108,7 @@
       
       subject = document.getElementById("input");
       console.log(subject.value);
-      data.push(new caseData(e.latlng,e.timestamp,subject.value));
+      data.push(new caseData(location.latlng,location.timestamp,subject.value));
       console.log(data);
       //a = await fetchJSON("/api/getjson",data[0]);  
     }
