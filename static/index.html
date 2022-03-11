@@ -20,7 +20,7 @@
     //let send;
     let id=[]
     let location
-    
+    const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
     class caseData{
       constructor(currentLocation,timestamp,subject){
         this.currentLocation = currentLocation;
@@ -128,7 +128,6 @@
   </script>   
 
   <script>
-    const map = L.map('mapcontainer',{zoomControl:false, maxzoom:40});
     const module = {}
   </script>
 
